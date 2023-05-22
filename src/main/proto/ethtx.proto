@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.mttbrt.ethtxmon.grpc.model";
+
+service EthTxService {
+  // Unary RPC
+  rpc MonitorAddressTx(Address) returns (Response) {}
+
+  // Client-to-server streaming RPC
+  rpc MonitorAddressesTx(stream Address) returns (Response) {}
+
+  // Server-to-client streaming RPC
+  rpc GetTx(RequestTx) returns (stream Tx) {}
+
+  // Bidirectional streaming RPC
+  rpc LatestTxForAddress(stream Address) returns (stream Tx) {}
+}
+
+message Response {
+  bool isError = 1;
+}
+
+message RequestTx {
+  Address address = 1;
+  uint32 limit = 2;
+}
+
+message Address {
+  bytes hash = 1;
+}
+
+message Tx {
+  bytes hash = 1;
+  uint64 timestamp = 2;
+  Address from = 3;
+  Address to = 4;
+  uint64 value = 5;
+  uint64 gas = 6;
+  uint64 gasPrice = 7;
+  bool isError = 8;
+}
