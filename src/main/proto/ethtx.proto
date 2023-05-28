@@ -1,33 +1,34 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "com.mttbrt.ethtxmon.grpc.model";
+option java_package = "com.mttbrt.ethtxmon.model";
 
-service EthTxService {
-  // Unary RPC
-  rpc MonitorAddressTx(Address) returns (Response) {}
+service EthTx {
+  // track transactions involving an ETH wallet address
+  rpc SubscribeToAddress (Address) returns (Response) {}
 
-  // Client-to-server streaming RPC
-  rpc MonitorAddressesTx(stream Address) returns (Response) {}
+  // stop tracking transactions involving an ETH wallet address
+  rpc UnsubscribeToAddress (Address) returns (Response) {}
 
-  // Server-to-client streaming RPC
-  rpc GetTx(RequestTx) returns (stream Tx) {}
+  // get the latest transaction involving an ETH wallet address
+  rpc GetLatestTx (Address) returns (Tx) {}
 
-  // Bidirectional streaming RPC
-  rpc LatestTxForAddress(stream Address) returns (stream Tx) {}
-}
-
-message Response {
-  bool isError = 1;
-}
-
-message RequestTx {
-  Address address = 1;
-  uint32 limit = 2;
+  // given an address and a transaction hash return the previous transaction
+  // involving the same ETH wallet address
+  rpc GetPreviousTx (stream TxRequest) returns (stream Tx) {}
 }
 
 message Address {
   bytes hash = 1;
+}
+
+message TxRequest {
+  Address address = 1;
+  bytes txHash = 2;
+}
+
+message Response {
+  bool success = 1;
 }
 
 message Tx {
@@ -38,5 +39,5 @@ message Tx {
   uint64 value = 5;
   uint64 gas = 6;
   uint64 gasPrice = 7;
-  bool isError = 8;
+  bool success = 8;
 }
