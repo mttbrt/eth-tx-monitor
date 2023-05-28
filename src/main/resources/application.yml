@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:hsqldb:mem:db
+    driverClassName: org.hsqldb.jdbc.JDBCDriver
+    username: sa
+    password: sa
+
+eth-tx:
+  tmpDir: C:/Users/berti/AppData/Local/Temp/tx-batches
+  api:
+    endpoint: https://api.etherscan.io/api
+    startBlock: 0
+    endBlock: 999999999
+    offset: 10

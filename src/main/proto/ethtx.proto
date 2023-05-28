@@ -36,7 +36,7 @@ message Tx {
   uint64 timestamp = 2;
   Address from = 3;
   Address to = 4;
-  uint64 value = 5;
+  bytes value = 5;
   uint64 gas = 6;
   uint64 gasPrice = 7;
   bool success = 8;

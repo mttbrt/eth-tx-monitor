@@ -25,7 +25,7 @@ public final class Ethtx {
           + "\n\006txHash\030\002 \001(\014\"\033\n\010Response\022\017\n\007success\030\001 "
           + "\001(\010\"\222\001\n\002Tx\022\014\n\004hash\030\001 \001(\014\022\021\n\ttimestamp\030\002 "
           + "\001(\004\022\026\n\004from\030\003 \001(\0132\010.Address\022\024\n\002to\030\004 \001(\0132"
-          + "\010.Address\022\r\n\005value\030\005 \001(\004\022\013\n\003gas\030\006 \001(\004\022\020\n"
+          + "\010.Address\022\r\n\005value\030\005 \001(\014\022\013\n\003gas\030\006 \001(\004\022\020\n"
           + "\010gasPrice\030\007 \001(\004\022\017\n\007success\030\010 \001(\0102\253\001\n\005Eth"
           + "Tx\022+\n\022SubscribeToAddress\022\010.Address\032\t.Res"
           + "ponse\"\000\022-\n\024UnsubscribeToAddress\022\010.Addres"
@@ -66,6 +66,7 @@ public final class Ethtx {
               "Hash", "Timestamp", "From", "To", "Value", "Gas", "GasPrice", "Success",
             });
   }
+
   private Ethtx() {}
 
   public static void registerAllExtensions(com.google.protobuf.ExtensionRegistryLite registry) {}

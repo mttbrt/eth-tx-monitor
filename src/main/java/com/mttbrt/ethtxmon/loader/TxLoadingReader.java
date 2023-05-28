@@ -1,44 +1,33 @@
 package com.mttbrt.ethtxmon.loader;
 
 import com.google.gson.Gson;
-import com.mttbrt.ethtxmon.loader.model.TxApiResponse;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import com.mttbrt.ethtxmon.loader.model.Pair;
+import com.mttbrt.ethtxmon.loader.model.TxApiResult;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-public class TxLoadingReader implements ItemReader<TxApiResponse> {
+@Component
+public class TxLoadingReader implements ItemReader<Pair<String, List<TxApiResult>>> {
 
-  private static final Gson gson = new Gson(); // TODO: get this a bean
-  @Value("${ethtx.tmp}")
+  private final Gson gson;
+
+  @Value("${eth-tx.tmpDir}")
   private String tmpDir;
 
-  @Override
-  public TxApiResponse read() throws IOException {
-    String readyFolder = tmpDir + File.separator + "ready";
-    File readyDir = new File(readyFolder);
+  public TxLoadingReader(Gson gson) {
+    this.gson = gson;
+  }
 
-    String[] children = readyDir.list();
-    if (children == null || children.length < 1) {
-      return null;
-    } else {
-      Path temp =
-          Files.move(
-              Paths.get(readyDir + File.separator + children[0]),
-              Paths.get(tmpDir + File.separator + "processing" + File.separator + children[0]));
-      try (FileReader fileReader = new FileReader(temp.toFile());
-          BufferedReader reader = new BufferedReader(fileReader)) {
-        TxApiResponse res = gson.fromJson(reader, TxApiResponse.class);
-        System.out.println("Reading " + res); // TODO: user a proper logger instead
-        return res;
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
+  @Override
+  public Pair<String, List<TxApiResult>> read() {
+    try {
+      return IOUtils.readItemsToProcess(tmpDir, gson);
+    } catch (IOException e) {
+      return new Pair<>(null, Collections.emptyList());
     }
   }
 }

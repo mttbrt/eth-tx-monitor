@@ -44,6 +44,7 @@ public final class Response extends com.google.protobuf.GeneratedMessageV3
   private Response(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
+
   private Response() {}
 
   public static com.google.protobuf.Descriptors.Descriptor getDescriptor() {
@@ -423,8 +424,7 @@ public final class Response extends com.google.protobuf.GeneratedMessageV3
     }
 
     @java.lang.Override
-    public Builder mergeUnknownFields(
-        final com.google.protobuf.UnknownFieldSet unknownFields) {
+    public Builder mergeUnknownFields(final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
     }
 

@@ -53,11 +53,11 @@ public interface TxOrBuilder
   com.mttbrt.ethtxmon.model.AddressOrBuilder getToOrBuilder();
 
   /**
-   * <code>uint64 value = 5;</code>
+   * <code>bytes value = 5;</code>
    *
    * @return The value.
    */
-  long getValue();
+  com.google.protobuf.ByteString getValue();
 
   /**
    * <code>uint64 gas = 6;</code>

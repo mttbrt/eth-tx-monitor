@@ -44,6 +44,7 @@ public final class Address extends com.google.protobuf.GeneratedMessageV3
   private Address(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
+
   private Address() {
     hash_ = com.google.protobuf.ByteString.EMPTY;
   }
@@ -427,8 +428,7 @@ public final class Address extends com.google.protobuf.GeneratedMessageV3
     }
 
     @java.lang.Override
-    public Builder mergeUnknownFields(
-        final com.google.protobuf.UnknownFieldSet unknownFields) {
+    public Builder mergeUnknownFields(final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
     }
 

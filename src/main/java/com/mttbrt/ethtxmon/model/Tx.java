@@ -49,7 +49,7 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
   private long timestamp_ = 0L;
   private com.mttbrt.ethtxmon.model.Address from_;
   private com.mttbrt.ethtxmon.model.Address to_;
-  private long value_ = 0L;
+  private com.google.protobuf.ByteString value_ = com.google.protobuf.ByteString.EMPTY;
   private long gas_ = 0L;
   private long gasPrice_ = 0L;
   private boolean success_ = false;
@@ -61,6 +61,7 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
 
   private Tx() {
     hash_ = com.google.protobuf.ByteString.EMPTY;
+    value_ = com.google.protobuf.ByteString.EMPTY;
   }
 
   public static com.google.protobuf.Descriptors.Descriptor getDescriptor() {
@@ -241,12 +242,12 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
   }
 
   /**
-   * <code>uint64 value = 5;</code>
+   * <code>bytes value = 5;</code>
    *
    * @return The value.
    */
   @java.lang.Override
-  public long getValue() {
+  public com.google.protobuf.ByteString getValue() {
     return value_;
   }
 
@@ -304,8 +305,8 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
     if (to_ != null) {
       output.writeMessage(4, getTo());
     }
-    if (value_ != 0L) {
-      output.writeUInt64(5, value_);
+    if (!value_.isEmpty()) {
+      output.writeBytes(5, value_);
     }
     if (gas_ != 0L) {
       output.writeUInt64(6, gas_);
@@ -337,8 +338,8 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
     if (to_ != null) {
       size += com.google.protobuf.CodedOutputStream.computeMessageSize(4, getTo());
     }
-    if (value_ != 0L) {
-      size += com.google.protobuf.CodedOutputStream.computeUInt64Size(5, value_);
+    if (!value_.isEmpty()) {
+      size += com.google.protobuf.CodedOutputStream.computeBytesSize(5, value_);
     }
     if (gas_ != 0L) {
       size += com.google.protobuf.CodedOutputStream.computeUInt64Size(6, gas_);
@@ -373,7 +374,7 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
     if (hasTo()) {
       if (!getTo().equals(other.getTo())) return false;
     }
-    if (getValue() != other.getValue()) return false;
+    if (!getValue().equals(other.getValue())) return false;
     if (getGas() != other.getGas()) return false;
     if (getGasPrice() != other.getGasPrice()) return false;
     if (getSuccess() != other.getSuccess()) return false;
@@ -400,7 +401,7 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
       hash = (53 * hash) + getTo().hashCode();
     }
     hash = (37 * hash) + VALUE_FIELD_NUMBER;
-    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(getValue());
+    hash = (53 * hash) + getValue().hashCode();
     hash = (37 * hash) + GAS_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(getGas());
     hash = (37 * hash) + GASPRICE_FIELD_NUMBER;
@@ -458,7 +459,7 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
             com.mttbrt.ethtxmon.model.Address.Builder,
             com.mttbrt.ethtxmon.model.AddressOrBuilder>
         toBuilder_;
-    private long value_;
+    private com.google.protobuf.ByteString value_ = com.google.protobuf.ByteString.EMPTY;
     private long gas_;
     private long gasPrice_;
     private boolean success_;
@@ -498,7 +499,7 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
         toBuilder_.dispose();
         toBuilder_ = null;
       }
-      value_ = 0L;
+      value_ = com.google.protobuf.ByteString.EMPTY;
       gas_ = 0L;
       gasPrice_ = 0L;
       success_ = false;
@@ -586,7 +587,7 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
       if (other.hasTo()) {
         mergeTo(other.getTo());
       }
-      if (other.getValue() != 0L) {
+      if (other.getValue() != com.google.protobuf.ByteString.EMPTY) {
         setValue(other.getValue());
       }
       if (other.getGas() != 0L) {
@@ -648,12 +649,12 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
                 bitField0_ |= 0x00000008;
                 break;
               } // case 34
-            case 40:
+            case 42:
               {
-                value_ = input.readUInt64();
+                value_ = input.readBytes();
                 bitField0_ |= 0x00000010;
                 break;
-              } // case 40
+              } // case 42
             case 48:
               {
                 gas_ = input.readUInt64();
@@ -990,23 +991,25 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
     }
 
     /**
-     * <code>uint64 value = 5;</code>
+     * <code>bytes value = 5;</code>
      *
      * @return The value.
      */
     @java.lang.Override
-    public long getValue() {
+    public com.google.protobuf.ByteString getValue() {
       return value_;
     }
 
     /**
-     * <code>uint64 value = 5;</code>
+     * <code>bytes value = 5;</code>
      *
      * @param value The value to set.
      * @return This builder for chaining.
      */
-    public Builder setValue(long value) {
-
+    public Builder setValue(com.google.protobuf.ByteString value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
       value_ = value;
       bitField0_ |= 0x00000010;
       onChanged();
@@ -1014,13 +1017,13 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
     }
 
     /**
-     * <code>uint64 value = 5;</code>
+     * <code>bytes value = 5;</code>
      *
      * @return This builder for chaining.
      */
     public Builder clearValue() {
       bitField0_ = (bitField0_ & ~0x00000010);
-      value_ = 0L;
+      value_ = getDefaultInstance().getValue();
       onChanged();
       return this;
     }
@@ -1137,8 +1140,7 @@ public final class Tx extends com.google.protobuf.GeneratedMessageV3
     }
 
     @java.lang.Override
-    public Builder mergeUnknownFields(
-        final com.google.protobuf.UnknownFieldSet unknownFields) {
+    public Builder mergeUnknownFields(final com.google.protobuf.UnknownFieldSet unknownFields) {
       return super.mergeUnknownFields(unknownFields);
     }
 
